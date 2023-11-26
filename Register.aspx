@@ -31,6 +31,11 @@
                 </tr>
                 <tr>
                     <td class="auto-style4">
+                        <asp:TextBox ID="TextBox6" runat="server" Width="241px" placeholder="Enter your username"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="auto-style4">
                         <asp:TextBox ID="TextBox2" runat="server" Width="241px" placeholder="Enter your phone number"></asp:TextBox>
                     </td>
                 </tr>

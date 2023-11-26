@@ -19,7 +19,24 @@ namespace FlowerShop2
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            
+            string userid = TextBox1.Text, phone = TextBox2.Text, email = TextBox3.Text,password = TextBox4.Text, confirmPassword = TextBox5.Text, username=TextBox6.Text;
+
+            if (password == confirmPassword)
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("INSERT INTO [FlowerShop].[dbo].[User]([UserID],[PhoneNumber],[Email],[UserPassword]) VALUES ('" + userid + "','" + username + "','" + phone + "','" + email + "','" + password + "');", connection);
+                command.ExecuteNonQuery();
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('You have successfully created an account.');", true);
+                Response.Redirect("Login.aspx");
+                connection.Close();
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('User ID already exists. Please choose a different User ID.');", true);
+                connection.Close();
+            }
+
         }
 
     }
