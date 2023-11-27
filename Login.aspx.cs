@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace FlowerShop2
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
 
         SqlConnection connection = new SqlConnection("Data Source=DESKTOP-O59O2R0\\SQLEXPRESS;Initial Catalog=FlowerShop;Integrated Security=True");
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            // Get username and password from the input fields
             string userid = TextBox1.Text;
             string password = TextBox2.Text;
 
@@ -34,6 +27,9 @@ namespace FlowerShop2
 
             if (count > 0)
             {
+                // Store UserId in a session variable
+                Session["UserID"] = userid;
+
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('You have successfully logged in');", true);
                 Response.Redirect("Homepage.aspx");
             }
@@ -41,6 +37,8 @@ namespace FlowerShop2
             {
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('The id or password you entered is invalid.');", true);
             }
+
+            connection.Close();
         }
     }
 }

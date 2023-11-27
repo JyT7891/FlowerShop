@@ -11,7 +11,7 @@ namespace FlowerShop2
 {
 
 
-    public partial class Product
+    public partial class About
     {
 
         /// <summary>
@@ -31,14 +31,5 @@ namespace FlowerShop2
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::FlowerShop2.DynamicData.FieldTemplates.Navigation1 Navigation1;
-
-        /// <summary>
-        /// ProductRepeater control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater ProductRepeater;
     }
 }
