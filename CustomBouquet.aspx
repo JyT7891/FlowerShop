@@ -8,51 +8,7 @@
 <head runat="server">
     <title>Custom Bouquet</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        /* Add your custom styles here */
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-
-        select,
-        input[type="number"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #00efff;
-            color: #000;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-            font-size: 16px;
-            transition: background-color 0.5s;
-        }
-
-            button:hover {
-                background-color: #ffffff;
-                transition: background-color 0.5s;
-            }
-    </style>
+    <link href="CustomBouqet.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">

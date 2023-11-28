@@ -57,3 +57,5 @@ C:\Users\User\source\repos\FlowerShop2\FlowerShop2\obj\Debug\FlowerShop2.csproj.
 C:\Users\User\source\repos\FlowerShop2\FlowerShop2\obj\Debug\FlowerShop2.csproj.CopyComplete
 C:\Users\User\source\repos\FlowerShop2\FlowerShop2\obj\Debug\FlowerShop2.dll
 C:\Users\User\source\repos\FlowerShop2\FlowerShop2\obj\Debug\FlowerShop2.pdb
+C:\Users\calvi\Source\Repos\FlowerShop\obj\Debug\FlowerShop2.dll
+C:\Users\calvi\Source\Repos\FlowerShop\obj\Debug\FlowerShop2.pdb
