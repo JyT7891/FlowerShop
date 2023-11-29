@@ -11,7 +11,7 @@ namespace FlowerShop2
 {
 
 
-    public partial class CustomBouquet
+    public partial class QuantitySelection
     {
 
         /// <summary>
@@ -33,40 +33,31 @@ namespace FlowerShop2
         protected global::FlowerShop2.DynamicData.FieldTemplates.Navigation1 Navigation1;
 
         /// <summary>
-        /// btnAddFlower control.
+        /// imgFlower control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnAddFlower;
+        protected global::System.Web.UI.WebControls.Image imgFlower;
 
         /// <summary>
-        /// flowerDropdowns control.
+        /// lblProductName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl flowerDropdowns;
+        protected global::System.Web.UI.WebControls.Label lblProductName;
 
         /// <summary>
-        /// ddlFlowers control.
+        /// lblProductDescription control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlFlowers;
-
-        /// <summary>
-        /// QuantityDropDown control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl QuantityDropDown;
+        protected global::System.Web.UI.WebControls.Label lblProductDescription;
 
         /// <summary>
         /// txtQuantity control.
@@ -76,33 +67,6 @@ namespace FlowerShop2
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtQuantity;
-
-        /// <summary>
-        /// txtBouquetQuantity control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtBouquetQuantity;
-
-        /// <summary>
-        /// ddlWrappingPaper control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlWrappingPaper;
-
-        /// <summary>
-        /// lblPrice control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPrice;
 
         /// <summary>
         /// lblMessage control.

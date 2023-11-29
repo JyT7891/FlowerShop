@@ -8,7 +8,51 @@
 <head runat="server">
     <title>Custom Bouquet</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="CustomBouqet.css" rel="stylesheet" />
+    <style>
+        /* Add your custom styles here */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #00efff;
+            color: #000;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.5s;
+        }
+
+            button:hover {
+                background-color: #ffffff;
+                transition: background-color 0.5s;
+            }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -31,7 +75,10 @@
                     </div>
                 </div>
             </div>
-
+            <div>
+                <label for="txtBouquetQuantity">Bouquet Quantity:</label>
+                <asp:TextBox ID="txtBouquetQuantity" runat="server" AutoPostBack="true" OnTextChanged="txtBouquetQuantity_TextChanged" type="number" min="1"></asp:TextBox>
+            </div>
             <div>
                 <label for="ddlWrappingPaper">Select Wrapping Paper:</label>
                 <asp:DropDownList ID="ddlWrappingPaper" runat="server" AutoPostBack="true" OnSelectedIndexChanged="txtQuantity_TextChanged"></asp:DropDownList>
@@ -40,6 +87,7 @@
             <div>
                 <label for="lblPrice">Price:</label>
                 <asp:Label ID="lblPrice" runat="server" Text="0.00"></asp:Label>
+                <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
             </div>
             <asp:Button ID="btnAddToCart" runat="server" Text="Add to Cart" OnClick="AddToCart_Click" />
         </div>

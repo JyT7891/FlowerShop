@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.DynamicData;
@@ -21,7 +22,32 @@ namespace FlowerShop2.DynamicData.FieldTemplates
         {
             get
             {
+                
                 return Literal1;
+            }
+        }
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack)
+            {
+                getCartCount();
+            }
+        }
+        string connectionString = "Data Source=DESKTOP-O59O2R0\\SQLEXPRESS;Initial Catalog=FlowerShop;Integrated Security=True";
+        private void getCartCount()
+        {
+            string userid = Session["UserID"] as string;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT COUNT(*) AS TotalRows FROM Cart WHERE userid = @userid";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@userid", userid);
+                
+                connection.Open();
+                var result = command.ExecuteScalar();
+
+                cartCountLabel.Text =result.ToString();
             }
         }
     }

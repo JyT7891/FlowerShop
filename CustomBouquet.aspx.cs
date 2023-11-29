@@ -137,7 +137,10 @@ namespace FlowerShop2
         {
             UpdatePrice();
         }
-
+        protected void txtBouquetQuantity_TextChanged(object sender, EventArgs e)
+        {
+            UpdatePrice();
+        }
         private decimal GetFlowerPrice(string flowerName)
         {
             decimal flowerPrice = 0.0m;
@@ -197,63 +200,200 @@ namespace FlowerShop2
         private void UpdatePrice()
         {
             string selectedFlower = ddlFlowers.SelectedValue;
+            int BouquetQuantity = 0;
             int quantity = 0;
 
             if (!string.IsNullOrEmpty(txtQuantity.Text))
             {
                 quantity = Convert.ToInt32(txtQuantity.Text);
+                
+            }
+
+            if (!string.IsNullOrEmpty(txtBouquetQuantity.Text))
+            {
+                BouquetQuantity = Convert.ToInt32(txtBouquetQuantity.Text);
+
             }
 
             decimal flowerPrice = GetFlowerPrice(selectedFlower);
             decimal wrappingPaperPrice = GetWrappingPaperPrice(ddlWrappingPaper.SelectedValue);
 
-            decimal totalPrice = (flowerPrice * quantity) + wrappingPaperPrice;
+            decimal totalPrice = ((flowerPrice * quantity) + wrappingPaperPrice) * BouquetQuantity;
 
             lblPrice.Text = totalPrice.ToString("0.00");
         }
 
         protected void AddToCart_Click(object sender, EventArgs e)
         {
-            string selectedFlower = ddlFlowers.SelectedValue;
-            int quantity = 0;
+            string flowerName = ddlFlowers.SelectedValue;
+            int quantity = Convert.ToInt32(txtQuantity.Text);
+            int BouquetQuantity = Convert.ToInt32(txtBouquetQuantity.Text);
+            string wrappingPaper = ddlWrappingPaper.SelectedValue;
+            decimal wrappingPaperPrice = GetWrappingPaperPrice(wrappingPaper);
 
-            if (!string.IsNullOrEmpty(txtQuantity.Text))
+            int customBouquetID = InsertCustomBouquet(flowerName, quantity, wrappingPaper);
+
+            if (customBouquetID != -1)
             {
-                quantity = Convert.ToInt32(txtQuantity.Text);
+                InsertIntoCart(BouquetQuantity,customBouquetID, quantity, flowerName, wrappingPaperPrice);
+                InsertCustomBouquetFlowers(customBouquetID, quantity, flowerName);
+
             }
-
-            string selectedWrappingPaper = ddlWrappingPaper.SelectedValue;
-
-            // Call the method to add the selected items to the cart
-            AddToCart(selectedFlower, quantity, selectedWrappingPaper);
-
-            ddlFlowers.SelectedIndex = 0;
-            txtQuantity.Text = "";
-            ddlWrappingPaper.SelectedIndex = 0;
+            else
+            {
+                lblMessage.Text = "Failed to add to cart. Please try again.";
+            }
         }
 
-        private void AddToCart(string flowerName, int quantity, string wrappingPaper)
+        private int getFlowerID(string name)
         {
+            int flowerid = 0;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT FlowerID FROM Flowers WHERE FlowerName = @FlowerName";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@FlowerName", name);
+
+                connection.Open();
+                var result = command.ExecuteScalar();
+                if (result != null && result != DBNull.Value)
+                {
+                    flowerid = (int)result;
+                }
+            }
+
+            return flowerid;
+        }
+
+        private int GetWrappingPaperID(string wrappingPaperName)
+        {
+            int wrappingPaperID = 0;
+
             try
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string query = "INSERT INTO CartItems (FlowerName, Quantity, WrapPaperName) VALUES (@FlowerName, @Quantity, @WrapPaperName)";
+                    string query = "SELECT WrapPaperID FROM FlowerWrappingPaper WHERE WrapPaperName = @WrapPaperName";
                     SqlCommand command = new SqlCommand(query, connection);
-
-                    command.Parameters.AddWithValue("@FlowerName", flowerName);
-                    command.Parameters.AddWithValue("@Quantity", quantity);
-                    command.Parameters.AddWithValue("@WrapPaperName", wrappingPaper);
+                    command.Parameters.AddWithValue("@WrapPaperName", wrappingPaperName);
 
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    var result = command.ExecuteScalar();
+                    if (result != null && result != DBNull.Value)
+                    {
+                        wrappingPaperID = (int)result;
+                    }
                 }
-
-                // Provide feedback or perform any other actions after adding to the cart
             }
             catch (Exception ex)
             {
-                // Handle exception (e.g., log or display an error message)
+                // Handle exception
+            }
+
+            return wrappingPaperID;
+        }
+
+        private int InsertCustomBouquet(string flowerName, int quantity, string wrappingPaper)
+        {
+            int customBouquetID = -1;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // Inserting into CustomBouquet
+                    decimal flowerPrice = GetFlowerPrice(flowerName);
+                    decimal wrappingPaperPrice = GetWrappingPaperPrice(wrappingPaper);
+                    int wrapPaperID = GetWrappingPaperID(wrappingPaper);
+                    decimal totalPrice = (flowerPrice * quantity) + wrappingPaperPrice;
+
+                    string query1 = "INSERT INTO CustomBouquet (WrappingPaperID, Price) VALUES (@WrappingPaperID, @Price); SELECT SCOPE_IDENTITY();";
+                    SqlCommand command1 = new SqlCommand(query1, connection, transaction);
+
+                    command1.Parameters.AddWithValue("@WrappingPaperID", wrapPaperID);
+                    command1.Parameters.AddWithValue("@Price", totalPrice);
+
+                    customBouquetID = Convert.ToInt32(command1.ExecuteScalar());
+
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    // Handle exception (log, display error message, etc.)
+                }
+            }
+
+            return customBouquetID;
+        }
+
+        private void InsertIntoCart(int BouquetQuantity,int customBouquetID, int quantity, string flowerName, decimal wrappingPaperPrice)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // Inserting into Cart
+                    string userid = Session["UserID"] as string;
+                    decimal totalPrice = ((GetFlowerPrice(flowerName) * quantity) + wrappingPaperPrice) * BouquetQuantity;
+                    string query2 = "INSERT INTO Cart (UserID,CustomBouquetID,Quantity,Subtotal,FlowerID) VALUES (@UserID,@CustomBouquetID,@Quantity,@Subtotal,@FlowerID);";
+                    SqlCommand command2 = new SqlCommand(query2, connection, transaction);
+
+                    command2.Parameters.AddWithValue("@UserID", userid);
+                    command2.Parameters.AddWithValue("@CustomBouquetID", customBouquetID);
+                    command2.Parameters.AddWithValue("@Quantity", BouquetQuantity);
+                    command2.Parameters.AddWithValue("@Subtotal", totalPrice);
+                    command2.Parameters.AddWithValue("@FlowerID", getFlowerID(flowerName));
+
+                    lblMessage.Text = $"userid: {userid}, customBouquetID: {customBouquetID}, BouquetQuantity:{BouquetQuantity}, totalPrice:{totalPrice}, FlowerID:{getFlowerID(flowerName)} ";
+
+                    command2.ExecuteNonQuery();
+                    transaction.Commit();
+                    
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+        }
+
+        private void InsertCustomBouquetFlowers(int customBouquetID, int quantity, string flowerName)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                SqlTransaction transaction = connection.BeginTransaction();
+
+                try
+                {
+                    // Get the ID for the bouquet
+                    int flowerID = getFlowerID(flowerName); // Get the ID for the flower
+
+                    string query = "INSERT INTO CustomBouquetFlowers (CustomBouquetID, FlowerID, FlowerQuantity) VALUES (@CustomBouquetID, @FlowerID, @FlowerQuantity)";
+                    SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                    command.Parameters.AddWithValue("@CustomBouquetID", customBouquetID);
+                    command.Parameters.AddWithValue("@FlowerID", flowerID);
+                    command.Parameters.AddWithValue("@FlowerQuantity", quantity);
+
+                    command.ExecuteNonQuery();
+
+                    transaction.Commit();
+                    lblMessage.Text = "Insert successful"; // Display success message
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    lblMessage.Text = "Insert failed: " + ex.Message; // Display error message
+                                                                      // Handle the exception
+                }
             }
         }
 
