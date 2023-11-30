@@ -31,6 +31,7 @@ namespace FlowerShop2
                     ddlWrappingPaper.DataBind();
                     ddlWrappingPaper.Items.Insert(0, new ListItem("--Select Wrapping Paper--", ""));
                 }
+
             }
             else
             {
@@ -350,8 +351,6 @@ namespace FlowerShop2
                     command2.Parameters.AddWithValue("@Quantity", BouquetQuantity);
                     command2.Parameters.AddWithValue("@Subtotal", totalPrice);
                     command2.Parameters.AddWithValue("@FlowerID", getFlowerID(flowerName));
-
-                    lblMessage.Text = $"userid: {userid}, customBouquetID: {customBouquetID}, BouquetQuantity:{BouquetQuantity}, totalPrice:{totalPrice}, FlowerID:{getFlowerID(flowerName)} ";
 
                     command2.ExecuteNonQuery();
                     transaction.Commit();
