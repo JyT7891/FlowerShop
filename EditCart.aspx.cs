@@ -211,13 +211,15 @@ namespace FlowerShop2
                     command.ExecuteNonQuery();
 
                     transaction.Commit();
-                    lblMessage.Text = "Insert successful"; // Display success message
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('Succeddfully edited the bouquet');", true);
+                    Response.Redirect("Cart.aspx");// Display success message
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    lblMessage.Text = "Insert failed: " + ex.Message; // Display error message
-                                                                      // Handle the exception
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('Something went wrong');", true);
+                    Response.Redirect("Cart.aspx");// Display error message
+                                                                                                                                            // Handle the exception
                 }
 
             }
