@@ -1,0 +1,71 @@
+﻿/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Existing styles */
+.bouquet-quantity {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.container-border {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+/* Additional styles */
+.flower-img {
+    display: block;
+    margin: 0 auto;
+    width: 80%; /* Adjust the width as needed */
+    height: auto; /* Adjust the height automatically */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sample box shadow */
+    margin-bottom: 20px;
+}
+
+
+.product-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+    .product-info h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .product-info p {
+        font-size: 16px;
+        color: #555;
+        margin-bottom: 0;
+    }
+
+.add-to-cart {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #00efff;
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.5s;
+}
+
+    .add-to-cart:hover {
+        background-color: #ffffff;
+        transition: background-color 0.5s;
+    }

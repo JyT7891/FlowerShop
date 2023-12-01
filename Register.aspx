@@ -5,57 +5,65 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <style type="text/css">
-        .auto-style1 {
-            width: 100%;
-        }
-        .auto-style2 {
-            width: 189px;
-        }
-        .auto-style4 {
-            height: 23px;
-        }
-    </style>
+    <link href="Register.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            <table class="auto-style1">
+            <table>
                 <tr>
-                    <td class="auto-style2"><h1>Sign Up Page</h1></td>
+                    <td colspan="2"><h1>Sign Up Page</h1></td>
                 </tr>
                 <tr>
-                    <td class="auto-style4">
-                        <asp:TextBox ID="TextBox1" runat="server" Width="241px" placeholder="Enter your user id"></asp:TextBox>
+                    <td>
+                        <label>User ID</label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="TextBox1" runat="server" Width="241px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style4">
-                        <asp:TextBox ID="TextBox6" runat="server" Width="241px" placeholder="Enter your username"></asp:TextBox>
+                    <td>
+                        <label>Username</label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="TextBox6" runat="server" Width="241px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style4">
-                        <asp:TextBox ID="TextBox2" runat="server" Width="241px" placeholder="Enter your phone number"></asp:TextBox>
+                    <td>
+                        <label>Phone Number</label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="TextBox2" runat="server" Width="241px"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style4">
-                        <asp:TextBox ID="TextBox3" runat="server" Width="241px" placeholder="Enter your email"></asp:TextBox>
+                    <td>
+                        <label>Email</label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="TextBox3" runat="server" Width="241px" type="email"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style4">
-                        <asp:TextBox ID="TextBox4" runat="server" Width="241px" placeholder="Enter your password"></asp:TextBox>
+                    <td>
+                        <label>Password</label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="TextBox4" runat="server" Width="241px" type="password"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style4">
-                        <asp:TextBox ID="TextBox5" runat="server" Width="241px" placeholder="Re-enter your password"></asp:TextBox>
+                    <td>
+                        <label>Re-enter password</label>
+                    </td>
+                    <td>
+                        <asp:TextBox ID="TextBox5" runat="server" Width="241px" type="password"></asp:TextBox>
                     </td>
                 </tr>
                 <tr>
-                    <td class="auto-style4">
+                    <td>
                         <asp:Button ID="Button1" runat="server" Text="Register" onclick="Button1_Click"/>
                     </td>
                 </tr>

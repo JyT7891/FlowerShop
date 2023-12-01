@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\DynamicData",
+    "\\obj"
   ],
-  "SelectedNode": "\\C:\\Users\\calvi\\Source\\Repos\\FlowerShop",
+  "SelectedNode": "\\obj\\Homepage.aspx",
   "PreviewInSolutionExplorer": false
 }
