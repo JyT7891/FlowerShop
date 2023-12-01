@@ -31,6 +31,7 @@ namespace FlowerShop2
                     ddlWrappingPaper.DataBind();
                     ddlWrappingPaper.Items.Insert(0, new ListItem("--Select Wrapping Paper--", ""));
                 }
+
             }
             else
             {
@@ -351,8 +352,6 @@ namespace FlowerShop2
                     command2.Parameters.AddWithValue("@Subtotal", totalPrice);
                     command2.Parameters.AddWithValue("@FlowerID", getFlowerID(flowerName));
 
-                    lblMessage.Text = $"userid: {userid}, customBouquetID: {customBouquetID}, BouquetQuantity:{BouquetQuantity}, totalPrice:{totalPrice}, FlowerID:{getFlowerID(flowerName)} ";
-
                     command2.ExecuteNonQuery();
                     transaction.Commit();
                     
@@ -386,13 +385,15 @@ namespace FlowerShop2
                     command.ExecuteNonQuery();
 
                     transaction.Commit();
-                    lblMessage.Text = "Insert successful"; // Display success message
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('Successfully added the bouquet');", true);
+                    Response.Redirect("Cart.aspx"); // Display success message
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    lblMessage.Text = "Insert failed: " + ex.Message; // Display error message
-                                                                      // Handle the exception
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "script", "alert('Something went wrong');", true);
+                    Response.Redirect("Cart.aspx"); // Display error message
+                                                    // Handle the exception
                 }
             }
         }
